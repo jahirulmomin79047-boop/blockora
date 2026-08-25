@@ -1,0 +1,6 @@
+{
+  "name": "Block Blast",
+  "description": "A colorful, addictive block puzzle game with satisfying blasts, combos, smooth drag-and-drop, and high score tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

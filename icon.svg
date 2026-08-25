@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c1026" />
+      <stop offset="50%" stop-color="#1b153f" />
+      <stop offset="100%" stop-color="#090d22" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8CF4FF" />
+      <stop offset="50%" stop-color="#00E5FF" />
+      <stop offset="100%" stop-color="#0097A7" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1BEE7" />
+      <stop offset="50%" stop-color="#AA00FF" />
+      <stop offset="100%" stop-color="#6A0080" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF59D" />
+      <stop offset="50%" stop-color="#FFD600" />
+      <stop offset="100%" stop-color="#C69C00" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF94C2" />
+      <stop offset="50%" stop-color="#FF2A85" />
+      <stop offset="100%" stop-color="#B3004C" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background rounded canvas -->
+  <rect width="512" height="512" rx="110" fill="url(#bgGrad)" />
+  <rect width="504" height="504" x="4" y="4" rx="106" fill="none" stroke="#7C4DFF" stroke-width="4" stroke-opacity="0.4" />
+  
+  <!-- Ambient glow backdrop -->
+  <circle cx="256" cy="256" r="160" fill="#00E5FF" opacity="0.18" filter="url(#glow)" />
+  <circle cx="256" cy="256" r="120" fill="#FF2A85" opacity="0.15" filter="url(#glow)" />
+
+  <!-- 4 Jewel Blocks forming an iconic Blockora emblem -->
+  <!-- Top Left: Cyan Jewel -->
+  <g transform="translate(136, 136)">
+    <rect width="104" height="104" rx="20" fill="url(#cyanGrad)" filter="url(#glow)" />
+    <rect width="92" height="92" x="6" y="6" rx="16" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+    <circle cx="52" cy="52" r="12" fill="#FFFFFF" opacity="0.8" />
+  </g>
+
+  <!-- Top Right: Pink Jewel -->
+  <g transform="translate(272, 136)">
+    <rect width="104" height="104" rx="20" fill="url(#pinkGrad)" filter="url(#glow)" />
+    <rect width="92" height="92" x="6" y="6" rx="16" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+    <circle cx="52" cy="52" r="12" fill="#FFFFFF" opacity="0.8" />
+  </g>
+
+  <!-- Bottom Left: Gold Jewel -->
+  <g transform="translate(136, 272)">
+    <rect width="104" height="104" rx="20" fill="url(#goldGrad)" filter="url(#glow)" />
+    <rect width="92" height="92" x="6" y="6" rx="16" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+    <circle cx="52" cy="52" r="12" fill="#FFFFFF" opacity="0.8" />
+  </g>
+
+  <!-- Bottom Right: Purple Jewel -->
+  <g transform="translate(272, 272)">
+    <rect width="104" height="104" rx="20" fill="url(#purpleGrad)" filter="url(#glow)" />
+    <rect width="92" height="92" x="6" y="6" rx="16" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.6" />
+    <circle cx="52" cy="52" r="12" fill="#FFFFFF" opacity="0.8" />
+  </g>
+</svg>

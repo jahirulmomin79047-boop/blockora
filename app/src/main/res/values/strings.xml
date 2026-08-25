@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Block Blast</string>
+    <string name="score">Score</string>
+    <string name="high_score">Best</string>
+    <string name="combo">Combo</string>
+    <string name="game_over">Game Over</string>
+    <string name="restart">Play Again</string>
+    <string name="sound_effects">Sound Effects</string>
+    <string name="music">Background Music</string>
+    <string name="settings">Settings</string>
+    <string name="new_high_score">NEW BEST!</string>
+</resources>
