@@ -222,8 +222,7 @@ fun HeaderView(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 1. High Score Card
-            val displayedHighScore = maxOf(state.sessionHighScore, state.highScore)
-            val highScoreStr = displayedHighScore.toString()
+            val highScoreStr = state.highScore.toString()
 
             Box(
                 modifier = Modifier

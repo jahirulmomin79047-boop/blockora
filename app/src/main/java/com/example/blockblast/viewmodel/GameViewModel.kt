@@ -33,7 +33,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val _gameState = MutableStateFlow(
         GameState(
             highScore = preferences.highScore,
-            sessionHighScore = preferences.sessionHighScore,
             soundEffectsEnabled = preferences.soundEffectsEnabled,
             backgroundMusicEnabled = preferences.backgroundMusicEnabled
         )
@@ -111,7 +110,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun resetHighScore() {
         preferences.resetHighScore()
         soundManager.playSound(SoundManager.SoundType.CLICK)
-        _gameState.update { it.copy(highScore = 0, sessionHighScore = 0) }
+        _gameState.update { it.copy(highScore = 0) }
     }
 
     fun onResumeApp() {
@@ -261,13 +260,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
         val newScore = state.score + pointsEarned
 
-        // Track and persist highest score achieved during current play session in SharedPreferences
-        val isNewSessionRecord = newScore > state.sessionHighScore
-        val newSessionHighScore = if (isNewSessionRecord) newScore else state.sessionHighScore
-        if (isNewSessionRecord) {
-            preferences.sessionHighScore = newSessionHighScore
-        }
-
         // Track and persist all-time high score in SharedPreferences
         val isNewAllTimeRecord = newScore > state.highScore
         val newHighScore = if (isNewAllTimeRecord) newScore else state.highScore
@@ -302,7 +294,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 availablePieces = finalPieces,
                 score = newScore,
                 highScore = newHighScore,
-                sessionHighScore = newSessionHighScore,
                 lastEarnedPoints = pointsEarned,
                 lastPointsTimestamp = System.currentTimeMillis(),
                 comboCount = newCombo,
@@ -312,7 +303,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 blastHighlight = if (linesCleared > 0) BlastHighlight(fullRows.toSet(), fullCols.toSet()) else null,
                 isGameOver = gameOver,
                 showGameOverDialog = gameOver,
-                isNewHighScore = isNewSessionRecord && newScore > 0
+                isNewHighScore = isNewAllTimeRecord && newScore > 0
             )
         }
 
@@ -339,8 +330,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         soundManager.playSound(SoundManager.SoundType.CLICK)
         _gameState.update {
             GameState(
+                score = 0,
                 highScore = preferences.highScore,
-                sessionHighScore = preferences.sessionHighScore,
                 soundEffectsEnabled = preferences.soundEffectsEnabled,
                 backgroundMusicEnabled = preferences.backgroundMusicEnabled,
                 availablePieces = BlockShape.generatePieceSet(),

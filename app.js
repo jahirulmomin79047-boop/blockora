@@ -83,12 +83,36 @@ const SHAPE_TEMPLATES = [
   { matrix: [[0, 1], [1, 1], [1, 0]], colors: ['GREEN', 'YELLOW'] }
 ];
 
+// Storage key for per-device local high score
+const STORAGE_KEY_BEST_SCORE = 'blockora_best_score';
+
+function loadLocalBestScore() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_BEST_SCORE);
+    if (saved !== null) {
+      const parsed = parseInt(saved, 10);
+      return !isNaN(parsed) && parsed > 0 ? parsed : 0;
+    }
+  } catch (e) {
+    // Fallback for environments with disabled localStorage
+  }
+  return 0;
+}
+
+function saveLocalBestScore(score) {
+  try {
+    localStorage.setItem(STORAGE_KEY_BEST_SCORE, Math.max(0, Math.floor(score)).toString());
+  } catch (e) {
+    // Graceful fallback
+  }
+}
+
 class BlockoraGame {
   constructor() {
     this.grid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
     this.availablePieces = [null, null, null];
     this.score = 0;
-    this.highScore = parseInt(localStorage.getItem('blockora_high_score') || '0', 10);
+    this.highScore = loadLocalBestScore();
     this.totalLines = 0;
     this.comboCount = 0;
     this.isGameOver = false;
@@ -102,7 +126,6 @@ class BlockoraGame {
     this.boardEl = document.getElementById('board');
     this.scoreEl = document.getElementById('score-val');
     this.highScoreEl = document.getElementById('high-score-val');
-    this.blastsEl = document.getElementById('blasts-val');
     this.slotsEl = [
       document.getElementById('slot-0'),
       document.getElementById('slot-1'),
@@ -113,7 +136,6 @@ class BlockoraGame {
     this.gameOverModalEl = document.getElementById('game-over-modal');
     this.finalScoreEl = document.getElementById('final-score-val');
     this.modalHighScoreEl = document.getElementById('modal-high-score-val');
-    this.modalBlastsEl = document.getElementById('modal-blasts-val');
     this.playAgainBtn = document.getElementById('play-again-btn');
     this.restartBtn = document.getElementById('restart-btn');
     this.soundToggleBtn = document.getElementById('sound-toggle-btn');
@@ -562,7 +584,7 @@ class BlockoraGame {
     this.score += points;
     if (this.score > this.highScore) {
       this.highScore = this.score;
-      localStorage.setItem('blockora_high_score', this.highScore.toString());
+      saveLocalBestScore(this.highScore);
     }
     this.updateStatsUI(true);
   }
@@ -570,7 +592,6 @@ class BlockoraGame {
   updateStatsUI(animateScore = false) {
     this.scoreEl.innerText = this.score.toLocaleString();
     this.highScoreEl.innerText = this.highScore.toLocaleString();
-    this.blastsEl.innerText = this.totalLines.toString();
 
     if (animateScore) {
       this.scoreEl.classList.remove('score-bump');
@@ -685,7 +706,6 @@ class BlockoraGame {
   showGameOverModal() {
     this.finalScoreEl.innerText = this.score.toLocaleString();
     this.modalHighScoreEl.innerText = this.highScore.toLocaleString();
-    this.modalBlastsEl.innerText = this.totalLines.toString();
     this.gameOverModalEl.classList.add('active');
   }
 
@@ -696,8 +716,9 @@ class BlockoraGame {
     this.totalLines = 0;
     this.comboCount = 0;
     this.isGameOver = false;
+    this.highScore = loadLocalBestScore();
     this.renderBoard();
-    this.updateStatsUI();
+    this.updateStatsUI(false);
     this.spawnPieceSet();
   }
 }

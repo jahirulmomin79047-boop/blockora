@@ -7,7 +7,6 @@ data class GameState(
     val availablePieces: List<BlockShape?> = BlockShape.generatePieceSet(),
     val score: Int = 0,
     val highScore: Int = 0,
-    val sessionHighScore: Int = 0,
     val lastEarnedPoints: Int = 0,
     val lastPointsTimestamp: Long = 0L,
     val comboCount: Int = 0,

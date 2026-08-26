@@ -9,7 +9,6 @@ class GamePreferences(context: Context) {
 
     companion object {
         private const val KEY_HIGH_SCORE = "key_high_score"
-        private const val KEY_SESSION_HIGH_SCORE = "key_session_high_score"
         private const val KEY_SFX_ENABLED = "key_sfx_enabled"
         private const val KEY_BGM_ENABLED = "key_bgm_enabled"
     }
@@ -17,10 +16,6 @@ class GamePreferences(context: Context) {
     var highScore: Int
         get() = prefs.getInt(KEY_HIGH_SCORE, 0)
         set(value) = prefs.edit().putInt(KEY_HIGH_SCORE, value).apply()
-
-    var sessionHighScore: Int
-        get() = prefs.getInt(KEY_SESSION_HIGH_SCORE, 0)
-        set(value) = prefs.edit().putInt(KEY_SESSION_HIGH_SCORE, value).apply()
 
     var soundEffectsEnabled: Boolean
         get() = prefs.getBoolean(KEY_SFX_ENABLED, true)
@@ -33,7 +28,6 @@ class GamePreferences(context: Context) {
     fun resetHighScore() {
         prefs.edit()
             .putInt(KEY_HIGH_SCORE, 0)
-            .putInt(KEY_SESSION_HIGH_SCORE, 0)
             .apply()
     }
 }
